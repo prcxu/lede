@@ -9,12 +9,11 @@
 
 name: OpenWrt-CI
 
-on:   
-      - master   
-    schedule:
-      - cron: 30 8 * * *
-    release:
-      types: [published]
+on:
+  schedule:
+    - cron: 30 8 * * *
+  release:
+    types: [published]
 
 jobs:
 
