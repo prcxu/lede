@@ -58,15 +58,15 @@ jobs:
           cd package
           mkdir openwrt-packages
           cd openwrt-packages
-          git clone https://github.com/jerrykuku/node-request.git
-          git clone https://github.com/jerrykuku/luci-app-jd-dailybonus.git 
+          # git clone https://github.com/jerrykuku/node-request.git
+          # git clone https://github.com/jerrykuku/luci-app-jd-dailybonus.git 
           git clone https://github.com/lisaac/luci-app-dockerman.git
           git clone https://github.com/tty228/luci-app-serverchan.git
           git clone https://github.com/destan19/OpenAppFilter.git
-          git clone https://github.com/Lienol/openwrt-package.git
+          # git clone https://github.com/Lienol/openwrt-package.git
           git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git
-          git clone https://github.com/rufengsuixing/luci-app-onliner.git
-          git clone https://github.com/kenzok8/openwrt-packages.git
+          # git clone https://github.com/rufengsuixing/luci-app-onliner.git
+          # git clone https://github.com/kenzok8/openwrt-packages.git
           git clone https://github.com/vernesong/OpenClash.git
                
       - name: Update feeds
@@ -179,10 +179,10 @@ jobs:
           CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Redsocks2=y
           CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Kcptun=y
           CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_ShadowsocksR_Server=y
-          CONFIG_PACKAGE_luci-app-ttyd=y
+          # CONFIG_PACKAGE_luci-app-ttyd=y
           CONFIG_PACKAGE_luci-app-rclone=y
           CONFIG_PACKAGE_luci-app-samba=y
-          CONFIG_PACKAGE_luci-app-smartdns=y
+          # CONFIG_PACKAGE_luci-app-smartdns=y
           CONFIG_PACKAGE_luci-app-ramfree=y
           CONFIG_PACKAGE_luci-app-autoreboot=y
           CONFIG_PACKAGE_luci-app-softethervpn=y
@@ -200,17 +200,17 @@ jobs:
           CONFIG_PACKAGE_luci-app-xlnetacc=y
           CONFIG_PACKAGE_luci-app-wol=y
           CONFIG_PACKAGE_luci-app-sfe=y
-          CONFIG_PACKAGE_luci-app-passwall=y
-          CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Brook=y
-          CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks=y
-          CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Trojan=y
-          CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Trojan_GO=y
-          CONFIG_PACKAGE_luci-app-passwall_INCLUDE_kcptun=y
-          CONFIG_PACKAGE_luci-app-passwall_INCLUDE_simple-obfs=y
-          CONFIG_PACKAGE_luci-app-passwall_INCLUDE_v2ray-plugin=y
+          # CONFIG_PACKAGE_luci-app-passwall=y
+          # CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Brook=y
+          # CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks=y
+          # CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Trojan=y
+          # CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Trojan_GO=y
+          # CONFIG_PACKAGE_luci-app-passwall_INCLUDE_kcptun=y
+          # CONFIG_PACKAGE_luci-app-passwall_INCLUDE_simple-obfs=y
+          # CONFIG_PACKAGE_luci-app-passwall_INCLUDE_v2ray-plugin=y
           CONFIG_PACKAGE_luci-app-nft-qos=y	
           CONFIG_PACKAGE_luci-i18n-nft-qos-zh-cn=y
-          CONFIG_PACKAGE_luci-app-jd-dailybonus=y
+          # CONFIG_PACKAGE_luci-app-jd-dailybonus=y
           CONFIG_PACKAGE_luci-app-serverchan=y
           CONFIG_PACKAGE_luci-app-dockerman=y
           CONFIG_PACKAGE_luci-app-dockerman_INCLUDE_ttyd=y
