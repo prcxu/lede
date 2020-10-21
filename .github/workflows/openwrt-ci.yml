@@ -58,8 +58,8 @@ jobs:
           cd package
           mkdir openwrt-packages
           cd openwrt-packages
-          # git clone https://github.com/jerrykuku/node-request.git
-          # git clone https://github.com/jerrykuku/luci-app-jd-dailybonus.git 
+          git clone https://github.com/jerrykuku/node-request.git
+          git clone https://github.com/jerrykuku/luci-app-jd-dailybonus.git 
           git clone https://github.com/lisaac/luci-app-dockerman.git
           git clone https://github.com/tty228/luci-app-serverchan.git
           git clone https://github.com/destan19/OpenAppFilter.git
@@ -210,7 +210,7 @@ jobs:
           # CONFIG_PACKAGE_luci-app-passwall_INCLUDE_v2ray-plugin=y
           CONFIG_PACKAGE_luci-app-nft-qos=y	
           CONFIG_PACKAGE_luci-i18n-nft-qos-zh-cn=y
-          # CONFIG_PACKAGE_luci-app-jd-dailybonus=y
+          CONFIG_PACKAGE_luci-app-jd-dailybonus=y
           CONFIG_PACKAGE_luci-app-serverchan=y
           CONFIG_PACKAGE_luci-app-dockerman=y
           CONFIG_PACKAGE_luci-app-dockerman_INCLUDE_ttyd=y
