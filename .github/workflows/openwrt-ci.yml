@@ -65,7 +65,7 @@ jobs:
           # git clone https://github.com/destan19/OpenAppFilter.git
           git clone https://github.com/Lienol/openwrt-package.git
           git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git
-          git clone https://github.com/rufengsuixing/luci-app-onliner.git
+          # git clone https://github.com/rufengsuixing/luci-app-onliner.git
           git clone https://github.com/kenzok8/openwrt-packages.git
           git clone https://github.com/vernesong/OpenClash.git
                
@@ -189,7 +189,7 @@ jobs:
           CONFIG_PACKAGE_luci-app-ddns=y
           CONFIG_PACKAGE_luci-app-oaf=y
           CONFIG_DEFAULT_luci-app-unblockmusic=y
-          CONFIG_PACKAGE_luci-app-v2ray-server=y
+          # CONFIG_PACKAGE_luci-app-v2ray-server=y
           CONFIG_DEFAULT_luci-app-nlbwmon=y
           CONFIG_PACKAGE_luci-app-verysync=y
           CONFIG_PACKAGE_luci-app-webadmin=y
