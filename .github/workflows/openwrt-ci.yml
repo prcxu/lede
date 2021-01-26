@@ -10,6 +10,9 @@
 name: OpenWrt-CI
 
 on:
+    push:
+    branches: 
+      - master
   schedule:
     - cron: 30 8 * * *
   release:
@@ -36,16 +39,17 @@ jobs:
         run: |
           docker rmi `docker images -q`
           sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d
-          sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* mysql* php*
+          sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* mysql* php* android*
           sudo -E apt-get update
-          sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch python3 unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs gcc-multilib g++-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler antlr3 gperf
+          sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch python3 unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs gcc-multilib g++-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler antlr3 gperf swig libtinfo5
           sudo -E apt-get -y autoremove --purge
           sudo -E apt-get clean
 
           # sudo mkdir -p -m 777 /mnt/openwrt/bin /mnt/openwrt/build_dir/host /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir
           # ln -s /mnt/openwrt/bin ./bin
-          # mkdir -p ./build_dir/host && ln -s /mnt/openwrt/build_dir/host ./build_dir/host
-          # mkdir -p ./build_dir/host && ln -s /mnt/openwrt/build_dir/hostpkg ./build_dir/hostpkg
+          # mkdir -p ./build_dir
+          # ln -s -f /mnt/openwrt/build_dir/host ./build_dir/host
+          # ln -s -f /mnt/openwrt/build_dir/hostpkg ./build_dir/hostpkg
           # ln -s /mnt/openwrt/dl ./dl
           # ln -s /mnt/openwrt/feeds ./feeds
           # ln -s /mnt/openwrt/staging_dir ./staging_dir
@@ -215,7 +219,7 @@ jobs:
       - name: Make download
         run: |
           make download -j8 || make download -j1 V=s
-          find ./dl/ -size -1024c -exec rm -f {} \;
+          rm -rf $(find ./dl/ -size -1024c)
           df -h
 
       - name: Compile firmware
@@ -230,16 +234,38 @@ jobs:
           du -h /mnt/openwrt/ --max-depth=1 || true
 
       - name: Prepare artifact
-        run: find ./bin/targets/ -type d -name "packages" | xargs rm -rf {}
+        run: |
+          mkdir -p ./artifact/firmware
+          mkdir -p ./artifact/package
+          mkdir -p ./artifact/buildinfo
+          rm -rf $(find ./bin/targets/ -type d -name "packages")
+          cp -rf $(find ./bin/targets/ -type f) ./artifact/firmware/
+          cp -rf $(find ./bin/packages/ -type f -name "*.ipk") ./artifact/package/
+          cp -rf $(find ./bin/targets/ -type f -name "*.buildinfo" -o -name "*.manifest") ./artifact/buildinfo/
 
-          # - name: Upload config.seed
-          #   uses: actions/upload-artifact@master
-          #   with:
-          #     name: config.seed
-          #     path: ./bin/targets/*/*/config.seed
+      - name: Deliver buildinfo
+        uses: actions/upload-artifact@v2
+        with:
+          name: OpenWrt_buildinfo
+          path: ./artifact/buildinfo/
 
-      - name: Upload firmware
-        uses: actions/upload-artifact@master
+      - name: Deliver package
+        uses: actions/upload-artifact@v2
+        with:
+          name: OpenWrt_package
+          path: ./artifact/package/
+
+      - name: Deliver firmware
+        uses: actions/upload-artifact@v2
         with:
           name: OpenWrt_firmware
           path: ./bin/targets/
+
+      - name: Upload release asset
+        if: github.event == 'release'
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.YOURTOKEN }}
+          file: ./artifact/firmware/*
+          tag: ${{ github.ref }}
+          file_glob: true
